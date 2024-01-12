@@ -1,10 +1,9 @@
 // create objects
-var startButton = document.getElementById('start-button')
-var questionContainer = document.getElementById('question-container')
+var startButton = document.getElementById('start')
+var questionContainer = document.getElementById('questions')
 
 // create method to start game 
 startButton.addEventListener('click', startGame)
-console.log('Started')
 startButton.classList.add('hide')
 questionContainer.classList.remove('hide')
 
