@@ -17,14 +17,14 @@ function startGame() {
     var startScreenDiv = document.getElementById("start-screen");
     startScreenDiv.innerHTML = "";
 
-    //start timer
-    // setInterval(() => {
-    //     time--;
-    //     document.getElementById("timer").textContent = `Time: ${time}`;
-    //     if (time === 0) {
-    //         endGame();
-    //     }
-    // }, 1000);
+    // start timer
+    setInterval(() => {
+        time--;
+        document.getElementById("time").textContent = `Time: ${time}`;
+        if (time === 0) {
+            endGame();
+        }
+    }, 1000);
 
     //call displayquestion function
 
@@ -60,3 +60,5 @@ function displayQuestion() {
     var startButton = document.getElementById("start")
 }
 startButton.onclick = startGame
+
+// correct README and make sure everything is included before submitting!!!
