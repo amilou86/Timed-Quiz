@@ -57,7 +57,6 @@ function startGame() {
     startQuiz();
 }
 // Access the quizQuestions array from the linked file
-// Assuming the array is named "quizQuestions" in questions.js  
 var quizQuestions = questions.quizQuestions;
 
 var currentQuestionIndex = 0;
@@ -83,18 +82,18 @@ function selectAnswer(index = 0) {
     var isCorrect = index === correctAnswerIndex;
 
     // Get the feedback element
-    var feedbackElement = document.getElementById("feedback");
+    // var feedbackElement = document.getElementById("feedback");
 
     // Display feedback based on answer correctness
-    if (isCorrect) {
-        feedbackElement.textContent = "Correct!";
-        feedbackElement.classList.remove("wrong");
-        feedbackElement.classList.add("correct");
-    } else {
-        feedbackElement.textContent = "Wrong!";
-        feedbackElement.classList.remove("correct");
-        feedbackElement.classList.add("wrong");
-    }
+    // if (isCorrect) {
+    //     feedbackElement.textContent = "Correct!";
+    //     feedbackElement.classList.remove("wrong");
+    //     feedbackElement.classList.add("correct");
+    // } else {
+    //     feedbackElement.textContent = "Wrong!";
+    //     feedbackElement.classList.remove("correct");
+    //     feedbackElement.classList.add("wrong");
+    // }
 
     // update score and progress based on answer
     if (isCorrect) {
@@ -105,13 +104,15 @@ function selectAnswer(index = 0) {
         document.getElementById("time").textContent = ` ${time}`;
 
         // Check if time has run out
-        // if (time <= 0) {
-        //     endGame(); // Call your function to end the game
-        // }
+        if (time <= 0) {
+            endGame(); // Call function to end the game
+        }
     }
 
     proceedToNextQuestion();
-
+    if (time <= 0 || currentQuestionIndex >= quizQuestions.length) {
+        endGame();
+    }
 }
 
 function proceedToNextQuestion() {
@@ -119,8 +120,10 @@ function proceedToNextQuestion() {
     displayQuestionAndAnswers(currentQuestionIndex);
 }
 
+function endGame() {
 
-// var startButton = document.getElementById("start")
+}
+
 
 
 startButton.onclick = startGame
