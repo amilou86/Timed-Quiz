@@ -20,12 +20,18 @@ function displayQuestionAndAnswers(questionIndex) {
     // Display the question
     questionTitleElement.textContent = questionText;
 
-    // Create and append answer choices as list items
+    // Create and append answer choices as list of buttons
     answerChoices.forEach((answer, index) => {
-        const choiceElement = document.createElement("li");
-        choiceElement.textContent = answer;
-        choiceElement.id = `choice-${index}`; // Assign unique IDs for later reference
-        choicesContainer.appendChild(choiceElement);
+        const answerButton = document.createElement("button");
+        answerButton.textContent = answer;
+        answerButton.id = `choice-${index}`;
+
+        // Add event listener for button clicks
+        answerButton.addEventListener("click", () => {
+            selectAnswer(index); // Call your function to handle answer selection
+        });
+
+        choicesContainer.appendChild(answerButton);
     });
 }
 
@@ -56,7 +62,6 @@ const quizQuestions = questions.quizQuestions; // Assuming the array is named "q
 var currentQuestionIndex = 0;
 
 
-
 function startQuiz() {
     // Hide the start screen
     const startScreen = document.getElementById("start-screen");
@@ -69,10 +74,6 @@ function startQuiz() {
     // Display the first question
     displayQuestionAndAnswers(currentQuestionIndex);
 }
-
-
-
-
 
 
 function nextQuestion() {
