@@ -2,8 +2,10 @@
 var startButton = document.getElementById('start')
 
 var time = 75;
-
 var score = 0;
+
+timerInterval = setInterval(() => {
+}, 1000);
 
 var quizQuestions = questions;
 
@@ -41,28 +43,6 @@ function displayQuestionAndAnswers(questionIndex) {
 function startGame() {
     console.log("This function is working");
 
-    // Clear the start screen
-    var startScreenDiv = document.getElementById("start-screen");
-    startScreenDiv.innerHTML = "";
-
-    // Start timer
-    setInterval(() => {
-        time--;
-        document.getElementById("time").textContent = ` ${time}`;
-        if (time === 0) {
-            endGame();
-        }
-    }, 1000);
-
-    startQuiz();
-}
-// Access the quizQuestions array from the linked file
-var quizQuestions = questions.quizQuestions;
-
-var currentQuestionIndex = 0;
-
-function startQuiz() {
-    // Hide the start screen
     var startScreen = document.getElementById("start-screen");
     startScreen.classList.add("hide");
 
@@ -70,12 +50,25 @@ function startQuiz() {
     var questionsArea = document.getElementById("questions");
     questionsArea.classList.remove("hide");
 
-    // Display the first question
+    // Start timer
+    timerInterval = setInterval(() => {
+        time--;
+        document.getElementById("time").textContent = ` ${time}`;
+        if (time === 0) {
+            endGame();
+        }
+    }, 1000);
+
     displayQuestionAndAnswers(currentQuestionIndex);
-    console.log(quizQuestions)
 }
+// Access the quizQuestions array from the linked file
+var quizQuestions = questions.quizQuestions;
+
+var currentQuestionIndex = 0;
+
 
 function selectAnswer(index = 0) {
+    console.log("select answer working");
     var correctAnswerIndex = questions[currentQuestionIndex].correctAnswer;
 
     // check if answer is correct
@@ -110,18 +103,49 @@ function selectAnswer(index = 0) {
     }
 
     proceedToNextQuestion();
+    // if either conditon (time runs out or all questions answered/reached end of array) is met, call endGame function
+
+}
+
+function proceedToNextQuestion() {
+    console.log("proceed working");
+    currentQuestionIndex++;
+    displayQuestionAndAnswers(currentQuestionIndex);
+
     if (time <= 0 || currentQuestionIndex >= quizQuestions.length) {
         endGame();
     }
 }
 
-function proceedToNextQuestion() {
-    currentQuestionIndex++;
-    displayQuestionAndAnswers(currentQuestionIndex);
-}
+
 
 function endGame() {
+    console.log("end game working");
+    // stops timer
+    clearInterval(timerInterval);
 
+    // clears screen of q&a 
+    // var questions = document.getElementById("questions");
+    // questions.innerHTML = " ";
+
+    // var questionTitle = document.getElementById("question-title");
+    // questionTitle.classList.add("hide");
+
+    // var choices = document.getElementById("choices");
+    // choices.classList.add("hide");
+
+    // var wrapper = document.getElementsByClassName("wrapper");
+    // wrapper.classList.add("hide");
+
+
+    // bring up end-screen div from html
+    var endScreen = document.getElementById("end-screen");
+    endScreen
+
+    // populates final-score <p> with final score
+    // ask for user initials in 'initial; textbox
+    // when submit is clicked, clears screen 
+    // goes to highscores ol in other html, which shows prev score saved 
 }
 
 
