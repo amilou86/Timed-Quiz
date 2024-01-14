@@ -4,11 +4,38 @@ var startButton = document.getElementById('start')
 var time = 75;
 var score = 0;
 
+// is this needed? it's declared within select answer function too
 timerInterval = setInterval(() => {
 }, 1000);
 
 var quizQuestions = questions;
 
+startButton.onclick = startGame
+
+// function to start game
+function startGame() {
+    console.log("This function is working");
+
+    var startScreen = document.getElementById("start-screen");
+    startScreen.classList.add("hide");
+
+    // Show the questions area
+    var questionsArea = document.getElementById("questions");
+    questionsArea.classList.remove("hide");
+
+    // Start timer
+    timerInterval = setInterval(() => {
+        time--;
+        document.getElementById("time").textContent = ` ${time}`;
+        if (time === 0) {
+            endGame();
+        }
+    }, 1000);
+
+    displayQuestionAndAnswers(currentQuestionIndex);
+}
+
+// function to display questions & answers
 function displayQuestionAndAnswers(questionIndex) {
     var question = questions[questionIndex];
     var questionText = question.question;
@@ -40,33 +67,11 @@ function displayQuestionAndAnswers(questionIndex) {
     });
 }
 
-function startGame() {
-    console.log("This function is working");
-
-    var startScreen = document.getElementById("start-screen");
-    startScreen.classList.add("hide");
-
-    // Show the questions area
-    var questionsArea = document.getElementById("questions");
-    questionsArea.classList.remove("hide");
-
-    // Start timer
-    timerInterval = setInterval(() => {
-        time--;
-        document.getElementById("time").textContent = ` ${time}`;
-        if (time === 0) {
-            endGame();
-        }
-    }, 1000);
-
-    displayQuestionAndAnswers(currentQuestionIndex);
-}
 // Access the quizQuestions array from the linked file
 var quizQuestions = questions.quizQuestions;
-
 var currentQuestionIndex = 0;
 
-
+// function to select answers
 function selectAnswer(index = 0) {
     console.log("select answer working");
     var correctAnswerIndex = questions[currentQuestionIndex].correctAnswer;
@@ -107,6 +112,7 @@ function selectAnswer(index = 0) {
 
 }
 
+// function to proceed to next question
 function proceedToNextQuestion() {
     console.log("proceed working");
     currentQuestionIndex++;
@@ -117,8 +123,7 @@ function proceedToNextQuestion() {
     }
 }
 
-
-
+// function to end game
 function endGame() {
     console.log("end game working");
     // stops timer
@@ -147,9 +152,5 @@ function endGame() {
     // when submit is clicked, clears screen 
     // goes to highscores ol in other html, which shows prev score saved 
 }
-
-
-
-startButton.onclick = startGame
 
 // correct README and make sure everything is included before submitting!!!
