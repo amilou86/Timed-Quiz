@@ -12,6 +12,7 @@ var quizQuestions = questions;
 
 startButton.onclick = startGame
 
+
 // function to start game
 function startGame() {
     console.log("This function is working");
@@ -27,7 +28,7 @@ function startGame() {
     timerInterval = setInterval(() => {
         time--;
         document.getElementById("time").textContent = ` ${time}`;
-        if (time === 0) {
+        if (time <= 0) {
             endGame();
         }
     }, 1000);
@@ -37,6 +38,7 @@ function startGame() {
 
 // function to display questions & answers
 function displayQuestionAndAnswers(questionIndex) {
+    console.log("display Q&A working");
     var question = questions[questionIndex];
     var questionText = question.question;
     var answerChoices = question.answers;
@@ -68,7 +70,7 @@ function displayQuestionAndAnswers(questionIndex) {
 }
 
 // Access the quizQuestions array from the linked file
-var quizQuestions = questions.quizQuestions;
+
 var currentQuestionIndex = 0;
 
 // function to select answers
@@ -78,20 +80,6 @@ function selectAnswer(index = 0) {
 
     // check if answer is correct
     var isCorrect = index === correctAnswerIndex;
-
-    // Get the feedback element
-    // var feedbackElement = document.getElementById("feedback");
-
-    // Display feedback based on answer correctness
-    // if (isCorrect) {
-    //     feedbackElement.textContent = "Correct!";
-    //     feedbackElement.classList.remove("wrong");
-    //     feedbackElement.classList.add("correct");
-    // } else {
-    //     feedbackElement.textContent = "Wrong!";
-    //     feedbackElement.classList.remove("correct");
-    //     feedbackElement.classList.add("wrong");
-    // }
 
     // update score and progress based on answer
     if (isCorrect) {
@@ -108,7 +96,7 @@ function selectAnswer(index = 0) {
     }
 
     proceedToNextQuestion();
-    // if either conditon (time runs out or all questions answered/reached end of array) is met, call endGame function
+    // if either condition (time runs out or all questions answered/reached end of array) is met, call endGame function
 
 }
 
@@ -116,9 +104,11 @@ function selectAnswer(index = 0) {
 function proceedToNextQuestion() {
     console.log("proceed working");
     currentQuestionIndex++;
-    displayQuestionAndAnswers(currentQuestionIndex);
-
-    if (time <= 0 || currentQuestionIndex >= quizQuestions.length) {
+    // Check if there is a next question
+    if (currentQuestionIndex < quizQuestions.length) {
+        displayQuestionAndAnswers(currentQuestionIndex);
+    } else {
+        // If no next question, end the game
         endGame();
     }
 }
@@ -130,27 +120,43 @@ function endGame() {
     clearInterval(timerInterval);
 
     // clears screen of q&a 
-    // var questions = document.getElementById("questions");
-    // questions.innerHTML = " ";
+    var questionsArea = document.getElementById("questions");
+    questionsArea.innerHTML = " ";
 
-    // var questionTitle = document.getElementById("question-title");
-    // questionTitle.classList.add("hide");
+    var questionTitle = document.getElementById("question-title");
+    questionTitle.classList.add("hide");
 
-    // var choices = document.getElementById("choices");
-    // choices.classList.add("hide");
-
-    // var wrapper = document.getElementsByClassName("wrapper");
-    // wrapper.classList.add("hide");
-
+    var choices = document.getElementById("choices");
+    choices.classList.add("hide");
 
     // bring up end-screen div from html
     var endScreen = document.getElementById("end-screen");
-    endScreen
+    endScreen.classList.remove("hide");
 
     // populates final-score <p> with final score
-    // ask for user initials in 'initial; textbox
-    // when submit is clicked, clears screen 
-    // goes to highscores ol in other html, which shows prev score saved 
+    var finalScore = document.getElementById("final-score");
+    finalScore.textContent = `Your final score is ${score}`;
+
+
+    // ask for user initials -
+    // reference submit button
+    var submitButton = document.getElementById("submit");
+    // add event listener to submit button
+    submitButton.addEventListener("click", function () {
+        // get user initials
+        var initialsInput = document.getElementById("initials");
+        var userInitials = initialsInput.value;
+
+        // saves scores in local storage
+        localStorage.setItem("final-score", score);
+        localStorage.setItem("initials", userInitials);
+
+        // redirect to highscore html
+        window.location.href = "highScores.html";
+    });
+
+
 }
 
-// correct README and make sure everything is included before submitting!!!
+var clearButton = document.getElementById('clear');
+
