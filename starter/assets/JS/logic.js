@@ -116,47 +116,53 @@ function proceedToNextQuestion() {
 // function to end game
 function endGame() {
     console.log("end game working");
+
     // stops timer
     clearInterval(timerInterval);
 
-    // clears screen of q&a 
+    // Get references to the HTML elements
     var questionsArea = document.getElementById("questions");
-    questionsArea.innerHTML = " ";
-
     var questionTitle = document.getElementById("question-title");
-    questionTitle.classList.add("hide");
-
     var choices = document.getElementById("choices");
-    choices.classList.add("hide");
-
-    // bring up end-screen div from html
     var endScreen = document.getElementById("end-screen");
-    endScreen.classList.remove("hide");
 
-    // populates final-score <p> with final score
-    var finalScore = document.getElementById("final-score");
-    finalScore.textContent = `Your final score is ${score}`;
+    // Check if the elements exist before trying to manipulate them
+    if (questionsArea && questionTitle && choices && endScreen) {
+        // clears screen of q&a 
+        questionsArea.innerHTML = "";
+        questionTitle.classList.add("hide");
+        choices.classList.add("hide");
 
+        // bring up end-screen div from html
+        endScreen.classList.remove("hide");
 
-    // ask for user initials -
-    // reference submit button
-    var submitButton = document.getElementById("submit");
-    // add event listener to submit button
-    submitButton.addEventListener("click", function () {
-        // get user initials
-        var initialsInput = document.getElementById("initials");
-        var userInitials = initialsInput.value;
+        // populates final-score <p> with final score
+        var finalScore = document.getElementById("final-score");
+        finalScore.textContent = `Your final score is ${score}`;
 
-        // saves scores in local storage
-        localStorage.setItem("final-score", score);
-        localStorage.setItem("initials", userInitials);
+        // ask for user initials -
+        // reference submit button
+        var submitButton = document.getElementById("submit");
 
-        // redirect to highscore html
-        window.location.href = "highScores.html";
-    });
+        // add event listener to submit button
+        submitButton.addEventListener("click", function () {
+            // get user initials
+            var initialsInput = document.getElementById("initials");
+            var userInitials = initialsInput.value;
 
+            // save scores in local storage
+            localStorage.setItem("final-score", score);
+            localStorage.setItem("initials", userInitials);
 
+        });
+    } else {
+        console.error("One or more elements not found");
+    }
 }
+
+
+
+
 
 var clearButton = document.getElementById('clear');
 
