@@ -88,11 +88,16 @@ document.addEventListener("DOMContentLoaded", function () {
         if (isCorrect) {
             score++;
             correctSound.play();
+            var feedback = document.getElementById("feedback");
+            feedback.classList.remove("hide");
+            feedback.textContent = "Correct!";
         } else {
             // Reduce time by 5 seconds
             time -= 5;
             document.getElementById("time").textContent = ` ${time}`;
-
+            var feedback = document.getElementById("feedback");
+            feedback.classList.remove("hide");
+            feedback.textContent = "Wrong!";
             // Play wrong sound
             wrongSound.play();
 
