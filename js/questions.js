@@ -15,6 +15,18 @@ var questions = [
         question: 'What does JS stand for?',
         answers: ['Java Script', 'JavaScript', 'JivaScrapt', 'Jelly Sandwich'],
         correctAnswer: 1
+    },
+
+    {
+        question: 'What is the process of finding errors and fixing them within a programme?',
+        answers: ['Compiling', 'Executing', 'Debugging', 'Scanning'],
+        correctAnswer: 2
+    },
+
+    {
+        question: 'Which of these structures would you use to execute a section of code 10 times?',
+        answers: ['If-Else', 'For', 'While', 'If'],
+        correctAnswer: 1
     }
 
 ];
